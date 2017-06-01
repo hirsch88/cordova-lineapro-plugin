@@ -17,46 +17,52 @@
 @implementation LineaProCDV
 
 -(void) scannerConect:(NSString*)num {
-    
+
     NSString *jsStatement = [NSString stringWithFormat:@"reportConnectionStatus('%@');", num];
-    [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
-    
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+    }
+
 }
 
 -(void) scannerBattery:(NSString*)num {
-    
+
     int percent;
     float voltage;
-    
+
 	if([dtdev getBatteryCapacity:&percent voltage:&voltage error:nil])
     {
         NSString *status = [NSString stringWithFormat:@"Bat: %.2fv, %d%%",voltage,percent];
-        
+
         // send to web view
         NSString *jsStatement = [NSString stringWithFormat:@"reportBatteryStatus('%@');", status];
-        [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
-        
+        if ([self.webView isKindOfClass:[UIWebView class]]) {
+            [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+        }
+
     }
 }
 
 -(void) scanPaymentCard:(NSString*)num {
-    
+
     NSString *jsStatement = [NSString stringWithFormat:@"onSuccessScanPaymentCard('%@');", num];
-    [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+    }
 	[self.viewController dismissViewControllerAnimated:YES completion:nil];
-    
+
 }
 
 - (void)initDT:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    
+
     if (!dtdev) {
         dtdev = [DTDevices sharedDevice];
         [dtdev addDelegate:self];
         [dtdev connect];
     }
-    
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -82,7 +88,7 @@
 
 - (void)connectionState: (int)state {
     NSLog(@"connectionState: %d", state);
-    
+
     switch (state) {
 		case CONN_DISCONNECTED:
 		case CONN_CONNECTING:
@@ -93,9 +99,11 @@
 			break;
 		}
 	}
-    
+
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.connectionChanged(%d);", state];
-    [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    }
 }
 
 - (void) deviceButtonPressed: (int) which {
@@ -122,7 +130,9 @@
         NSLog(@"magneticCardData (full info): accountNumber - %@, cardholderName - %@, expirationYear - %@, expirationMonth - %@, serviceCode - %@, discretionaryData - %@, firstName - %@, lastName - %@", [card objectForKey:@"accountNumber"], [card objectForKey:@"cardholderName"], [card objectForKey:@"expirationYear"], [card objectForKey:@"expirationMonth"], [card objectForKey:@"serviceCode"], [card objectForKey:@"discretionaryData"], [card objectForKey:@"firstName"], [card objectForKey:@"lastName"]);
     }
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onMagneticCardData('%@', '%@', '%@');", track1, track2, track3];
-    [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    }
 }
 
 - (void) magneticCardEncryptedData: (int) encryption tracks:(int) tracks data:(NSData *) data {
@@ -177,13 +187,17 @@
 - (void) barcodeData: (NSString *) barcode type:(int) type {
     NSLog(@"barcodeData: barcode - %@, type - %@", barcode, [dtdev barcodeType2Text:type]);
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onBarcodeData('%@', '%@');", barcode, [dtdev barcodeType2Text:type]];
-    [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    }
 }
 
 - (void) barcodeNSData: (NSData *) barcode isotype:(NSString *) isotype {
     NSLog(@"barcodeNSData: barcode - %@, type - %@", [[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding], isotype);
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onBarcodeData('%@', '%@');", [[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding], isotype];
-    [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    }
 }
 
 + (NSString*) getPDF417ValueByCode: (NSArray*) codesArr code:(NSString*)code {
@@ -239,11 +253,13 @@
     NSString* substrLicense = @"DAQ";
     NSString* license = [LineaProCDV getPDF417ValueByCode:codesArr code: substrLicense];
     NSLog(@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@ %@ %@", dateBirth, name, lastName, eye, state, city, height, weight, gender, hair, expires, license);
-    
+
     NSString* rawCodesArrJSString = [LineaProCDV generateStringForArrayEvaluationInJS:codesArr];
     //LineaProCDV.onBarcodeData(scanId, dob, state, city, expires, gender, height, weight, hair, eye)
     NSString* retStr = [ NSString stringWithFormat:@"var rawCodesArr = %@; LineaProCDV.onBarcodeData(rawCodesArr, '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@');", rawCodesArrJSString, license, dateBirth, state, city, expires, gender, height, weight, hair, eye, name, lastName];
-    [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    }
 }
 
 - (void) bluetoothDeviceConnected: (NSString *) address {
