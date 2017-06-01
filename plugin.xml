@@ -3,19 +3,19 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.citronium.lineaprocdv"
+    id="com.hirsch88.lineaprocdv"
     version="0.1">
     <name>LineaProCDV</name>
     <description>LineaProCDV</description>
     <license>MIT</license>
-    <keywords>lineapro,citronium</keywords>
-    <repo>https://github.com/ttatarinov/lineapro-phonegap-plugin.git</repo>
+    <keywords>lineapro,hirsch88</keywords>
+    <repo>https://github.com/hirsch88/cordova-lineapro-plugin.git</repo>
     <issue></issue>
-    
+
     <js-module src="www/LineaProCDV.js" name="LineaProCDV">
         <clobbers target="LineaProCDV" />
     </js-module>
-    
+
     <!-- ios -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
@@ -23,18 +23,18 @@
                 <param name="ios-package" value="LineaProCDV" />
             </feature>
         </config-file>
-        
+
         <header-file src="src/ios/LineaProCDV.h" />
         <header-file src="src/ios/DTDevices.h" />
         <source-file src="src/ios/LineaProCDV.m" />
-        
+
         <source-file src="src/ios/libdtdev.a" framework="true" compiler-flags="-fno-objc-arc"/>
-        
+
         <framework src="ExternalAccessory.framework" />
         <framework src="AudioToolbox.framework" />
         <framework src="MediaPlayer.framework" />
-        
-        
+
+
         <config-file target="*-Info.plist" parent="UISupportedExternalAccessoryProtocols">
           <array>
     		<string>com.datecs.linea.pro.msr</string>
@@ -46,5 +46,5 @@
 
     </platform>
 
-    
+
 </plugin>

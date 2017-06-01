@@ -1,12 +1,12 @@
-lineapro-phonegap-plugin
+cordova-lineapro-plugin
 ========================
 
 ## Quick start
-To start plugin need to execute 'LineaProCDV.initDT()' method. 
+To start plugin need to execute 'LineaProCDV.initDT()' method.
 Recommended to add this into 'deviceready' handler.
 
 ###
-!!! You must add section "SupportedExternalAccessoryProtocols" into "[Project Name].plist" file. 
+!!! You must add section "SupportedExternalAccessoryProtocols" into "[Project Name].plist" file.
 This section should include the following items:
 
 * com.datecs.linea.pro.msr
@@ -45,5 +45,3 @@ Using iOS SDK from http://www.datecs.bg/en/products/Universal-iOS-SDK/8/121
 
 Tested on Cordova ver.3.3
 
-(c) Citronium, 2014
-http://citronium.com
