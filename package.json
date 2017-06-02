@@ -1,16 +1,16 @@
 {
-  "name": "cordova-lineapro-plugin",
-  "version": "1.0.1",
-  "description": "LineaProCDV",
+  "name": "hirsch88-plugin-lineapro",
+  "version": "1.2.0",
+  "description": "LineaPro Cordova Plugin",
   "cordova": {
-    "id": "com.hirsch88.lineaprocdv",
+    "id": "hirsch88-plugin-lineapro",
     "platforms": [
       "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://hirsch88@github.com/hirsch88/lineapro-phonegap-plugin.git"
+    "url": "git+https://hirsch88@github.com/hirsch88/hirsch88-plugin-lineapro.git"
   },
   "keywords": [
     "lineapro",
@@ -20,7 +20,7 @@
   "author": "Gery Hirschfeld <https://github.com/hirsch88>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hirsch88/lineapro-phonegap-plugin/issues"
+    "url": "https://github.com/hirsch88/hirsch88-plugin-lineapro/issues"
   },
-  "homepage": "https://github.com/hirsch88/lineapro-phonegap-plugin#readme"
+  "homepage": "https://github.com/hirsch88/hirsch88-plugin-lineapro#readme"
 }

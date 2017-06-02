@@ -3,14 +3,15 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.hirsch88.lineaprocdv"
-    version="1.0.1">
+    id="hirsch88-plugin-lineapro"
+    version="1.2.0">
+
     <name>LineaProCDV</name>
-    <description>LineaProCDV</description>
+    <description>LineaPro Cordova Plugin</description>
     <license>MIT</license>
-    <keywords>lineapro,hirsch88</keywords>
+    <keywords>cordova,lineapro</keywords>
     <repo>https://github.com/hirsch88/cordova-lineapro-plugin.git</repo>
-    <issue></issue>
+    <issue>https://github.com/hirsch88/hirsch88-plugin-lineapro/issues</issue>
 
     <js-module src="www/LineaProCDV.js" name="LineaProCDV">
         <clobbers target="LineaProCDV" />

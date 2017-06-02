@@ -1,4 +1,4 @@
-cordova-lineapro-plugin
+hirsch88-plugin-lineapro
 ========================
 
 ## Quick start
