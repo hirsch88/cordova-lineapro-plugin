@@ -21,6 +21,8 @@
     NSString *jsStatement = [NSString stringWithFormat:@"reportConnectionStatus('%@');", num];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:jsStatement completionHandler:nil];
     }
 
 }
@@ -38,6 +40,8 @@
         NSString *jsStatement = [NSString stringWithFormat:@"reportBatteryStatus('%@');", status];
         if ([self.webView isKindOfClass:[UIWebView class]]) {
             [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+        } else if([self.webView isKindOfClass:[WKWebView class]]) {
+            [(WKWebView*)self.webView evaluateJavaScript:jsStatement completionHandler:nil];
         }
 
     }
@@ -48,6 +52,8 @@
     NSString *jsStatement = [NSString stringWithFormat:@"onSuccessScanPaymentCard('%@');", num];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:jsStatement completionHandler:nil];
     }
 	[self.viewController dismissViewControllerAnimated:YES completion:nil];
 
@@ -103,6 +109,8 @@
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.connectionChanged(%d);", state];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:retStr completionHandler:nil];
     }
 }
 
@@ -132,6 +140,8 @@
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onMagneticCardData('%@', '%@', '%@');", track1, track2, track3];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:retStr completionHandler:nil];
     }
 }
 
@@ -189,6 +199,8 @@
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onBarcodeData('%@', '%@');", barcode, [dtdev barcodeType2Text:type]];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:retStr completionHandler:nil];
     }
 }
 
@@ -197,6 +209,8 @@
     NSString* retStr = [ NSString stringWithFormat:@"LineaProCDV.onBarcodeData('%@', '%@');", [[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding], isotype];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:retStr completionHandler:nil];
     }
 }
 
@@ -259,6 +273,8 @@
     NSString* retStr = [ NSString stringWithFormat:@"var rawCodesArr = %@; LineaProCDV.onBarcodeData(rawCodesArr, '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@');", rawCodesArrJSString, license, dateBirth, state, city, expires, gender, height, weight, hair, eye, name, lastName];
     if ([self.webView isKindOfClass:[UIWebView class]]) {
         [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:retStr];
+    } else if([self.webView isKindOfClass:[WKWebView class]]) {
+        [(WKWebView*)self.webView evaluateJavaScript:retStr completionHandler:nil];
     }
 }
 
